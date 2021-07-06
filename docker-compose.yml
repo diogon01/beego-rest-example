@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: gotest
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command: postgres -c 'shared_buffers=256MB' -c 'max_connections=2000'
+  db_client:
+    image: postgres:9.6
+    environment:
+      PGPASSWORD: dev
+    links:
+      - db
+    command: psql -h db -U dev dev
+
+volumes:
+  pgdata:
+
+# networks:
+#   apache_devnet:
+#     external: true
