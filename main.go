@@ -1,10 +1,7 @@
 package main
 
 import (
-	"cripto-moedas/models"
 	_ "cripto-moedas/routers"
-
-	"fmt"
 
 	"github.com/beego/beego/v2/client/orm"
 	beego "github.com/beego/beego/v2/server/web"
@@ -25,17 +22,6 @@ func init() {
 func main() {
 
 	// Using default, you can use other database
-	o := orm.NewOrm()
-
-	deposit := new(models.Deposit)
-	deposit.Id = 12
-	deposit.Email = "diogo.henrique@gmail.com"
-	deposit.Txid = "1ExXt54FaFfRoJb6AUdimvxbT5GuDHLwT6"
-	deposit.Currency = "OPTT"
-	deposit.Amount = 456.23
-	deposit.Status = "status"
-
-	fmt.Println(o.Insert(deposit))
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true

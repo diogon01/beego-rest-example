@@ -172,6 +172,47 @@ func (c *DepositController) SeedDeposit() {
 	err := httplib.Get("https://testapimockstratum2021.free.beeceptor.com/api/transactions").ToJSON(result)
 
 	if err == nil {
+		if n, err := models.SeedDeposit(result); err == nil {
+			c.Data["json"] = n
+		} else {
+			c.Data["json"] = err.Error()
+		}
+		c.Data["json"] = result
+	} else {
+		c.Data["json"] = err.Error()
+	}
+
+	c.ServeJSON()
+}
+
+func (c *DepositController) UpdateStatus() {
+	idStr := c.Ctx.Input.Param(":id")
+	id, _ := strconv.ParseInt(idStr, 0, 64)
+
+	type Data struct {
+		Status string `json:"status`
+	}
+
+	type Body struct {
+		Status string `json:"status"`
+		Data   Data   `json:"data"`
+	}
+
+	result := &Body{}
+
+	s, err := httplib.Get(`https://testapimockstratum2021.free.beeceptor.com/api/transaction/` + idStr).String()
+	if err == nil {
+		t := strings.Replace(s, "]", "", -1)
+		b := []byte(t)
+		err := json.Unmarshal(b, &result)
+		if err != nil {
+			c.Data["json"] = err.Error()
+		}
+		if err := models.UpdateStatus(id, result.Data.Status); err == nil {
+			c.Data["json"] = `Update deposit: ` + idStr + `status: ` + result.Data.Status
+		} else {
+			c.Data["json"] = err.Error()
+		}
 		c.Data["json"] = result
 	} else {
 		c.Data["json"] = err.Error()

@@ -30,6 +30,7 @@ func init() {
 				&controllers.DepositController{},
 			),
 			beego.NSRouter("/seed", &controllers.DepositController{}, "get:SeedDeposit"),
+			beego.NSRouter("/status/:id", &controllers.DepositController{}, "get:UpdateStatus"),
 		),
 	)
 	beego.AddNamespace(ns)

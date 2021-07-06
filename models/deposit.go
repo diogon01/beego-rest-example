@@ -5,23 +5,66 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/beego/beego/v2/client/orm"
+	jsontime "github.com/liamylian/jsontime/v2/v2"
 )
 
+const CUS_TIME_FORMAT = "2006-01-02 15:04:05"
+
+// func (ts TimeStamp) MarshalJSON() ([]byte, error) {
+// 	t := ts
+// 	if y := t.Year(); y < 0 || y >= 10000 {
+// 		return nil, errors.New("Time.MarshalJSON: year outside of range [0,9999]")
+// 	}
+// 	b := make([]byte, 0, len(CUS_TIME_FORMAT)+2)
+// 	b = append(b, '"')
+// 	b = t.AppendFormat(b, CUS_TIME_FORMAT)
+// 	b = append(b, '"')
+// 	return b, nil
+// }
+
+// func (ts *time.Time) UnmarshalJSON(data []byte) error {
+// 	if string(data) == "null" {
+// 		return nil
+// 	}
+// 	parseTime, err := time.Parse(`"`+CUS_TIME_FORMAT+`"`, string(data))
+// 	if err != nil {
+// 		return err
+// 	}
+// 	*ts = TimeStamp(parseTime)
+// 	return nil
+// }
+
+// func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
+// 	// you can now parse b as thoroughly as you want
+
+// 	s := strings.Trim(string(b), "\"")
+// 	if s == "null" {
+// 		ct.Timer = time.Timer{}
+// 		return
+// 	}
+// 	ct.Timer, err = time.Parse(`"`+CUS_TIME_FORMAT+`"`, s)
+// 	return
+// }
+
 type Deposit struct {
-	Id        int64   `json:"id"`
-	Email     string  `json:"email"`
-	Txid      string  `json:"txid"`
-	Currency  string  `json:"currency"`
-	Amount    float64 `json:"amount" orm:"digits(12);decimals(2)"`
-	Status    string  `json:"status"`
-	CreatedAt string  `json:"createdAt" orm:"auto_now_add;type(datetime)"`
-	UpdatedAt string  `orm:"auto_now;type(datetime)"`
+	Id        int64     `json:"id"`
+	Email     string    `json:"email"`
+	Txid      string    `json:"txid"`
+	Currency  string    `json:"currency"`
+	Amount    float64   `json:"amount" orm:"digits(12);decimals(2)"`
+	Status    string    `json:"status"`
+	CreatedAt Time      `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt" orm:"auto_now;type(datetime)"`
 }
+
+type Time string
 
 func init() {
 	// Need to register model in init
+	jsontime.SetDefaultTimeFormat(time.RFC3339, time.Local)
 	orm.RegisterModel(new(Deposit))
 }
 
@@ -30,6 +73,12 @@ func init() {
 func AddDeposit(m *Deposit) (id int64, err error) {
 	o := orm.NewOrm()
 	id, err = o.Insert(m)
+	return
+}
+
+func SeedDeposit(m *[]Deposit) (n int64, err error) {
+	o := orm.NewOrm()
+	n, err = o.InsertMulti(100, m)
 	return
 }
 
@@ -144,6 +193,21 @@ func DeleteDeposit(id int64) (err error) {
 		var num int64
 		if num, err = o.Delete(&Deposit{Id: id}); err == nil {
 			fmt.Println("Number of records deleted in database:", num)
+		}
+	}
+	return
+}
+
+// DeleteTeste deletes Teste by Id and returns error if
+// the record to be deleted doesn't exist
+func UpdateStatus(id int64, status string) (err error) {
+	o := orm.NewOrm()
+	v := Deposit{Id: id, Status: status}
+	// ascertain id exists in the database
+	if err = o.Read(&v); err == nil {
+		var num int64
+		if num, err = o.Update(v); err == nil {
+			fmt.Println("Number of records updated in database:", num)
 		}
 	}
 	return

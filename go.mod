@@ -6,6 +6,7 @@ require github.com/beego/beego/v2 v2.0.1
 
 require (
 	github.com/go-delve/delve v1.6.1 // indirect
+	github.com/liamylian/jsontime/v2 v2.0.0 // indirect
 	github.com/lib/pq v1.10.2
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
