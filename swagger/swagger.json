@@ -99,6 +99,49 @@
                 }
             }
         },
+        "/deposit/seed": {
+            "get": {
+                "tags": [
+                    "deposit"
+                ],
+                "description": "Seed deposits",
+                "operationId": "DepositController.Seed deposits",
+                "responses": {
+                    "200": {
+                        "description": "{string} seed success!"
+                    },
+                    "403": {
+                        "description": "error to seed"
+                    }
+                }
+            }
+        },
+        "/deposit/status/{id}": {
+            "get": {
+                "tags": [
+                    "deposit"
+                ],
+                "description": "Use to updade status",
+                "operationId": "DepositController.Update status deposit",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} updade status success!"
+                    },
+                    "403": {
+                        "description": "error updade status"
+                    }
+                }
+            }
+        },
         "/deposit/{id}": {
             "get": {
                 "tags": [

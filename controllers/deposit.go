@@ -165,6 +165,12 @@ func (c *DepositController) Delete() {
 	c.ServeJSON()
 }
 
+// Delete ...
+// @Title Seed deposits
+// @Description Seed deposits
+// @Success 200 {string} seed success!
+// @Failure 403 error to seed
+// @router /seed [get]
 func (c *DepositController) SeedDeposit() {
 
 	result := &[]models.Deposit{}
@@ -185,6 +191,13 @@ func (c *DepositController) SeedDeposit() {
 	c.ServeJSON()
 }
 
+// Delete ...
+// @Title Update status deposit
+// @Description Use to updade status
+// @Param	id		path 	string	true		"The id you want to update"
+// @Success 200 {string} updade status success!
+// @Failure 403 error updade status
+// @router /status/:id [get]
 func (c *DepositController) UpdateStatus() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.ParseInt(idStr, 0, 64)
