@@ -4,7 +4,9 @@
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
 ### Prerequisites
-In order to run the project in your local machine you need to have `golang` and framework `beego` docker `and `docker-compose` installed.
+In order to run the project in your local machine you need to have `golang` and framework `beego` docker and `docker-compose` installed.
+
+###
 
 ### Running
 To start the project run
