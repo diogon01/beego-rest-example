@@ -9,13 +9,13 @@ In order to run the project in your local machine you need to have `golang` and 
 ###
 
 ### Running
-To start the project run
+To start Database project
 ```
 docker-compose up -d --build
 ```
-This will start the project in detached mode. If you want to see the logs, run
+This will start the project in Run the application by starting a local development server
 ```
-docker-compose logs -f --tail=100 <service-name>
+bee run
 ```
 
 To see which containers are running, run
