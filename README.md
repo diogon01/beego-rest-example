@@ -6,7 +6,18 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 In order to run the project in your local machine you need to have `golang` and framework `beego` docker and `docker-compose` installed.
 
-###
+### Installing bee tool
+
+Install bee tool with the following command:
+
+	go get github.com/beego/bee/v2
+
+Update the bee tool with the following command:
+
+	go get -u github.com/beego/bee/v2
+
+`bee` is installed into `GOPATH/bin` by default. You need to add `GOPATH/bin` to your PATH, otherwise the `bee` command won't work.
+
 
 ### Running
 To start Database project
