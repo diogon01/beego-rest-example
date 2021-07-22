@@ -202,11 +202,12 @@ func DeleteDeposit(id int64) (err error) {
 // the record to be deleted doesn't exist
 func UpdateStatus(id int64, status string) (err error) {
 	o := orm.NewOrm()
-	v := Deposit{Id: id, Status: status}
+	v := Deposit{Id: id}
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
+		v.Status = status
 		var num int64
-		if num, err = o.Update(v); err == nil {
+		if num, err = o.Update(&v); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}

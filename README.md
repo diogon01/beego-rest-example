@@ -29,15 +29,59 @@ This will start the project in Run the application by starting a local developme
 bee run
 ```
 
-To see which containers are running, run
+## Populate Database:
+
+Populating the database
 ```
-docker ps
+curl --location --request GET 'http://localhost:8080/v1/deposit/seed'
 ```
-or 
+List all deposits
 ```
-docker-compose ps
+curl --location --request GET 'http://localhost:8080/v1/deposit/?sortby=amount&order=desc&limit=1000' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "sortby": "amount"
+}'
 ```
 
-To stops and removes containers and networks created by `up`, run 
+Get deposit by id
 ```
-docker-compose down
+curl --location --request GET 'http://localhost:8080/v1/deposit/1001'
+```
+
+Update status deposit from external API:
+```
+curl --location --request GET 'http://localhost:8080/v1/deposit/status/10'
+```
+
+
+Create deposit
+```
+curl --location --request POST 'http://localhost:8080/v1/deposit/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+        "id": 1001,
+        "email": "jhylands70@plala.or.jp",
+        "txid": "1LD4njKX8PGXCrTiojM1q5NH1gEVux29CW",
+        "currency": "PRGX",
+        "amount": 986.27,
+        "status": "waiting",
+        "createdAt": "2021-02-06 14:42:52",
+        "updatedAt": "2021-07-06T19:01:44.933218Z"
+}'
+```
+
+Upate deposit
+```
+curl --location --request PUT 'http://localhost:8080/v1/deposit/1001' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "teste@gmail.com",
+    "txid": "1LD4njKX8PGXCrTiojM1q5NH1gEVux29CW",
+    "currency": "PRGX",
+    "amount": 986.27,
+    "status": "waiting",
+    "createdAt": "2021-02-06 14:42:52",
+    "updatedAt": "2021-07-06T19:01:44.933218Z"
+}'
+```
