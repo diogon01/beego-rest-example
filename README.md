@@ -3,10 +3,10 @@
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
-### Prerequisites
-In order to run the project in your local machine you need to have `golang` and framework `beego` docker and `docker-compose` installed.
+## Prerequisites
+In order to run the project in your local machine you need to have `golang` and framework `beego`
 
-### Installing bee tool
+## Installing bee tool
 
 Install bee tool with the following command:
 
@@ -19,16 +19,23 @@ Update the bee tool with the following command:
 `bee` is installed into `GOPATH/bin` by default. You need to add `GOPATH/bin` to your PATH, otherwise the `bee` command won't work.
 
 
-### Running
+## Database PostgreSQL with docker (optional) 
+necessary docker and `docker-compose` installed.
 To start Database project
 ```
 docker-compose up -d --build
 ```
+
+## Running
+
 This will start the project in Run the application by starting a local development server
 ```
 bee run
 ```
-
+## Doc for all routes
+```
+http://localhost:8080/swagger/
+```
 ## Populate Database:
 
 Populating the database
