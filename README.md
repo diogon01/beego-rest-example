@@ -47,13 +47,11 @@ http://localhost:8080/swagger/
 Get postman routes in the link: [https://www.getpostman.com/collections/2ece0e1dc308426996a5](https://www.getpostman.com/collections/2ece0e1dc308426996a5)
 
 
-## Populate Database:
-
-Populating the database
+#### Populate Database:
 ```
 curl --location --request GET 'http://localhost:8080/v1/deposit/seed'
 ```
-List all deposits
+#### List all deposits
 ```
 curl --location --request GET 'http://localhost:8080/v1/deposit/?sortby=amount&order=desc&limit=1000' \
 --header 'Content-Type: application/json' \
@@ -62,18 +60,18 @@ curl --location --request GET 'http://localhost:8080/v1/deposit/?sortby=amount&o
 }'
 ```
 
-Get deposit by id
+#### Get deposit by id
 ```
 curl --location --request GET 'http://localhost:8080/v1/deposit/1001'
 ```
 
-Update status deposit from external API:
+#### Update status deposit from external API:
 ```
 curl --location --request GET 'http://localhost:8080/v1/deposit/status/10'
 ```
 
 
-Create deposit
+#### Create deposit
 ```
 curl --location --request POST 'http://localhost:8080/v1/deposit/' \
 --header 'Content-Type: application/json' \
@@ -89,7 +87,7 @@ curl --location --request POST 'http://localhost:8080/v1/deposit/' \
 }'
 ```
 
-Upate deposit
+#### Upate deposit
 ```
 curl --location --request PUT 'http://localhost:8080/v1/deposit/1001' \
 --header 'Content-Type: application/json' \
