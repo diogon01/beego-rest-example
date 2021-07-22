@@ -28,6 +28,11 @@ docker-compose up -d --build
 
 ## Running
 
+Before run set database credencials in file `conf/app.conf`
+```
+sqlconn = postgres://dev:dev@127.0.0.1:5432/gotest
+```
+
 This will start the project in Run the application by starting a local development server
 ```
 bee run
@@ -36,6 +41,12 @@ bee run
 ```
 http://localhost:8080/swagger/
 ```
+
+## Import postman routes (optional)
+
+Get postman routes in the link:
+
+
 ## Populate Database:
 
 Populating the database
