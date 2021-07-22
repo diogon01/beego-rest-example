@@ -44,7 +44,7 @@ http://localhost:8080/swagger/
 
 ## Import postman routes (optional)
 
-Get postman routes in the link:
+Get postman routes in the link: [https://www.getpostman.com/collections/2ece0e1dc308426996a5](https://www.getpostman.com/collections/2ece0e1dc308426996a5)
 
 
 ## Populate Database:
